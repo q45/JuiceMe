@@ -24,6 +24,7 @@ void cashRegister::acceptAmount(int amountIn)
 {
 	cashOnHand += amountIn;
 }
+void sellProduct(dispenserType& product, cashRegister& pCounter);
 
 cashRegister::cashRegister()
 {
@@ -41,7 +42,6 @@ cashRegister::cashRegister(int cashIn)
 		cashOnHand = 500;
 	}
 }
-
 class dispenserType
 {
 public:
@@ -102,8 +102,13 @@ void showSelection();
 
 int main()
 {
-	showSelection();
+	
 
+	
+	showSelection();
+	sellProduct();
+
+	
 
 	system("pause");
 	return 0;
@@ -111,6 +116,8 @@ int main()
 
 void showSelection() 
 {
+	unsigned int hex = 0xFF3A;
+
 	cout << "*** Welcome to Q's Fruit Juice Shop ***" << endl;
 	cout <<"To select an item, enter " << endl;
 	cout << "1 for apple juice" << endl;
@@ -118,4 +125,37 @@ void showSelection()
 	cout << "3 for mango lassi" << endl;
 	cout << "4 for fruit punch" << endl;
 	cout << "9 to exit" << endl;
+	cout << hex << endl;
+}
+void sellProduct(dispenserType& product, cashRegister& pCounter)
+{
+	int amount;
+	int amount2;
+
+	if(product.getNoOfItems() > 0)
+	{
+		cout <<"Please deposit " << product.getCost() << "cents " << endl;
+		cin >> amount;
+	
+	
+	if(amount < product.getCost())
+	{
+		cout << "Please deposit another " << product.getCost() - amount << "cents" << endl;
+		cin >> amount2;
+	}
+
+	if (amount = product.getCost())
+	{
+		pCounter.acceptAmount(amount);
+		product.makeSale();
+		cout << "Collect your item at the bottom and enjoy " << endl;
+	} else {
+		cout << "The amount is no enough. " << "collect what you deposited" << endl;
+	}
+	}
+	else
+	{
+		cout << "Sorry, this item is sold out" << endl;
+
+	}
 }
