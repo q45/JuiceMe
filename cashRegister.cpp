@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-
+void sellProduct(dispenserType& product, cashRegister& pCounter);
 class cashRegister 
 {
 
@@ -24,7 +24,7 @@ void cashRegister::acceptAmount(int amountIn)
 {
 	cashOnHand += amountIn;
 }
-void sellProduct(dispenserType& product, cashRegister& pCounter);
+
 
 cashRegister::cashRegister()
 {
@@ -102,22 +102,47 @@ void showSelection();
 
 int main()
 {
-	
+	cashRegister counter;
+	dispenserType appleJuice(100, 50);
+	dispenserType orangeJuice(100, 65);
+	dispenserType mangoLassi(75, 45);
+	dispenserType fruitPunch(100, 85);
 
-	
+	int choice;
 	showSelection();
-	sellProduct();
 
-	
+	cin >> choice;
 
-	system("pause");
+	while(choice !=9)
+	{
+		switch (choice)
+		{
+		case 1:
+			sellProduct(appleJuice, counter);
+			break;
+		case 2:
+			sellProduct(orangeJuice, counter);
+			break;
+		case 3:
+			sellProduct(mangoLassi, counter);
+			break;
+		case 4:
+			sellProduct(fruitPunch, counter);
+			break;
+		default:
+			cout <<"Invalid selection. " << endl;
+			break;
+		}//end switch
+		showSelection();
+		cin >> choice;
+
+	}
+
 	return 0;
 }
 
 void showSelection() 
 {
-	unsigned int hex = 0xFF3A;
-
 	cout << "*** Welcome to Q's Fruit Juice Shop ***" << endl;
 	cout <<"To select an item, enter " << endl;
 	cout << "1 for apple juice" << endl;
@@ -125,7 +150,7 @@ void showSelection()
 	cout << "3 for mango lassi" << endl;
 	cout << "4 for fruit punch" << endl;
 	cout << "9 to exit" << endl;
-	cout << hex << endl;
+	
 }
 void sellProduct(dispenserType& product, cashRegister& pCounter)
 {
